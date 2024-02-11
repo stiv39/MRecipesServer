@@ -21,5 +21,10 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
             .WithOne(s => s.Article)
             .HasForeignKey(s => s.ArticleId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(a => a.Comments)
+            .WithOne(ac => ac.Article)
+            .HasForeignKey(ac => ac.ArticleId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

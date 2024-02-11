@@ -3,6 +3,13 @@ using MRecipes.Api.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Cors is great
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyCorsPolicy", policy => { policy.WithOrigins().AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -23,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("MyCorsPolicy");
 
 app.UseHttpsRedirection();
 
