@@ -44,7 +44,7 @@ public class ArticlesController : ControllerBase
             Ingredients = article.Ingredients.Select(i => i.Name).ToList(),
             Tags = article.Tags.Select(i => i.Tag.Name).ToList(),
             Steps = article.Steps.Select(i => i.Name).ToList(),
-            ArticleComments = article.Comments.Select(c => new ArticleCommentDto { Name = c.Name, Description = c.Description }).ToList()
+            ArticleComments = article.Comments.OrderByDescending(ac => ac.DateAdded).Select(c => new ArticleCommentDto { Name = c.Name, Description = c.Description, DateAdded = c.DateAdded }).ToList()
         };
 
         return Ok(dto);
@@ -81,6 +81,22 @@ public class ArticlesController : ControllerBase
         return Ok(tags.Select(t => new TagDto { Name = t.Name }).ToList());
     }
 
+    [HttpPost("comment")]
+    public async Task<IActionResult> CreateArticleComment([FromBody] ArticleCommentRequest request)
+    {
+       var article = await _dbContext.Articles.FirstOrDefaultAsync(a => a.Id == request.ArticleId);
+
+        if (article == null)
+        {
+            return BadRequest();
+        }
+
+       await _dbContext.ArticleComments.AddAsync(new ArticleComment { ArticleId = request.ArticleId, Name = request.Name, Description = request.Description, DateAdded = DateTime.Now });
+       await _dbContext.SaveChangesAsync();
+
+       return Ok();
+    }
+
     private ArticleDto ToArticleDto(Article article)
     {
         return new ArticleDto
@@ -91,6 +107,6 @@ public class ArticlesController : ControllerBase
             DateAdded = article.DateAdded,
             Image = article.Image,
             Tags = string.Join(",", article.Tags.Select(at => at.Tag.Name).ToList())
-        };
+        };        
     } 
 }
