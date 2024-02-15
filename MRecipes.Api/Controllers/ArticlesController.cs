@@ -86,7 +86,7 @@ public class ArticlesController : ControllerBase
     {
        var article = await _dbContext.Articles.FirstOrDefaultAsync(a => a.Id == request.ArticleId);
 
-        if (article == null)
+        if (article == null || string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Description))
         {
             return BadRequest();
         }
