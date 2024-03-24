@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MRecipes.Api.Contracts;
 using MRecipes.Api.Models;
 using MRecipes.Api.Persistence;
-using System.Threading;
 
 namespace MRecipes.Api.Controllers;
 
@@ -74,7 +73,7 @@ public class ArticlesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateArticle(AddArticleDto dto)
+    public async Task<IActionResult> CreateArticle([FromBody] AddArticleDto dto)
     {
         if (string.IsNullOrWhiteSpace(dto.Title) ||
            string.IsNullOrWhiteSpace(dto.Description) ||
@@ -108,7 +107,7 @@ public class ArticlesController : ControllerBase
             Id = id,
             Title = dto.Title,
             Description = dto.Description,
-            Steps = dto.Steps.Split(",").Select(step => new Step { Name = step.Trim(), ArticleId = id }).ToList(),
+            Steps = dto.Steps.Split("---").Select(step => new Step { Name = step.Trim(), ArticleId = id }).ToList(),
             Ingredients = dto.Ingredients.Split(",").Select(ingredient => new Ingredient { ArticleId = id, Name = ingredient.Trim() }).ToList(),
             DateAdded = DateTime.Now,
             AuthorId = Guid.Parse("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
@@ -126,9 +125,9 @@ public class ArticlesController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateArticle(UpdateArticleDto dto)
+    public async Task<IActionResult> UpdateArticle([FromBody]UpdateArticleDto dto)
     {
-        if (Guid.Empty == dto.ArticleId ||
+        if (Guid.Empty == dto.Id ||
             string.IsNullOrWhiteSpace(dto.Title) ||
            string.IsNullOrWhiteSpace(dto.Description) ||
            string.IsNullOrWhiteSpace(dto.Ingredients) ||
@@ -143,7 +142,7 @@ public class ArticlesController : ControllerBase
             .Include(a => a.Ingredients)
             .Include(a => a.Tags)
             .Include(a => a.Steps)
-            .FirstOrDefaultAsync(a => a.Id == dto.ArticleId);
+            .FirstOrDefaultAsync(a => a.Id == dto.Id);
 
         if (articleFromDb == null)
         {
@@ -165,7 +164,7 @@ public class ArticlesController : ControllerBase
 
         articleFromDb.Title = dto.Title;
         articleFromDb.Description = dto.Description;
-        articleFromDb.Steps = dto.Steps.Split(",").Select(step => new Step { Name = step.Trim(), ArticleId = articleFromDb.Id }).ToList();
+      //  articleFromDb.Steps = dto.Steps.Split(",").Select(step => new Step { Name = step.Trim(), ArticleId = articleFromDb.Id }).ToList();
         articleFromDb.Ingredients = dto.Ingredients.Split(",").Select(ingredient => new Ingredient { ArticleId = articleFromDb.Id, Name = ingredient.Trim() }).ToList();
         articleFromDb.Tags = articleTags;
 
@@ -174,7 +173,7 @@ public class ArticlesController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteArticle(Guid id)
     {
         var articleToDelete = await _dbContext.Articles
