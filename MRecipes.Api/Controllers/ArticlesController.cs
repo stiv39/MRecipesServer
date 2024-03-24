@@ -43,7 +43,7 @@ public class ArticlesController : ControllerBase
             Ingredients = article.Ingredients.Select(i => i.Name).ToList(),
             Tags = article.Tags.Select(i => i.Tag.Name).ToList(),
             Steps = article.Steps.Select(i => i.Name).ToList(),
-            ArticleComments = article.Comments.OrderByDescending(ac => ac.DateAdded).Select(c => new ArticleCommentDto { Name = c.Name, Description = c.Description, DateAdded = c.DateAdded }).ToList()
+            ArticleComments = article.Comments.OrderByDescending(ac => ac.DateAdded).Select(c => new ArticleCommentDto { Id = c.Id, Name = c.Name, Description = c.Description, DateAdded = c.DateAdded }).ToList()
         };
 
         return Ok(dto);
@@ -217,6 +217,22 @@ public class ArticlesController : ControllerBase
         await _dbContext.SaveChangesAsync();
 
         return Ok();
+    }
+
+    [HttpDelete("comment/{id}")]
+    public async Task<IActionResult> DeleteArticleComment(Guid id)
+    {
+        var comment = await _dbContext.ArticleComments.FirstOrDefaultAsync(c => c.Id == id);
+
+        if (comment == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Remove(comment);
+        await _dbContext.SaveChangesAsync();
+
+        return NoContent();
     }
 
     private ArticleDto ToArticleDto(Article article)
