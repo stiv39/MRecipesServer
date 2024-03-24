@@ -78,8 +78,8 @@ public class ArticlesController : ControllerBase
         if (string.IsNullOrWhiteSpace(dto.Title) ||
            string.IsNullOrWhiteSpace(dto.Description) ||
            string.IsNullOrWhiteSpace(dto.Ingredients) ||
-           string.IsNullOrWhiteSpace(dto.Steps) ||
-           string.IsNullOrWhiteSpace(dto.Tags)
+           string.IsNullOrWhiteSpace(dto.Tags) ||
+           dto.Steps.Count <= 0
           )
         {
             return BadRequest("Fill all mandatory fields");
@@ -107,7 +107,7 @@ public class ArticlesController : ControllerBase
             Id = id,
             Title = dto.Title,
             Description = dto.Description,
-            Steps = dto.Steps.Split("---").Select(step => new Step { Name = step.Trim(), ArticleId = id }).ToList(),
+            Steps = dto.Steps.Select(step => new Step { Name = step.Trim(), ArticleId = id }).ToList(),
             Ingredients = dto.Ingredients.Split(",").Select(ingredient => new Ingredient { ArticleId = id, Name = ingredient.Trim() }).ToList(),
             DateAdded = DateTime.Now,
             AuthorId = Guid.Parse("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
@@ -131,8 +131,8 @@ public class ArticlesController : ControllerBase
             string.IsNullOrWhiteSpace(dto.Title) ||
            string.IsNullOrWhiteSpace(dto.Description) ||
            string.IsNullOrWhiteSpace(dto.Ingredients) ||
-           string.IsNullOrWhiteSpace(dto.Steps) ||
-           string.IsNullOrWhiteSpace(dto.Tags)
+           string.IsNullOrWhiteSpace(dto.Tags) ||
+           dto.Steps.Count <= 0
         )
         {
             return BadRequest("Fill all mandatory fields");
@@ -164,7 +164,7 @@ public class ArticlesController : ControllerBase
 
         articleFromDb.Title = dto.Title;
         articleFromDb.Description = dto.Description;
-      //  articleFromDb.Steps = dto.Steps.Split(",").Select(step => new Step { Name = step.Trim(), ArticleId = articleFromDb.Id }).ToList();
+        articleFromDb.Steps = dto.Steps.Select(step => new Step { Name = step.Trim(), ArticleId = articleFromDb.Id }).ToList();
         articleFromDb.Ingredients = dto.Ingredients.Split(",").Select(ingredient => new Ingredient { ArticleId = articleFromDb.Id, Name = ingredient.Trim() }).ToList();
         articleFromDb.Tags = articleTags;
 
