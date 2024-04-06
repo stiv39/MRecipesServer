@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MRecipes.Api.Contracts;
@@ -8,6 +8,7 @@ using MRecipes.Api.Services;
 
 namespace MRecipes.Api.Controllers;
 
+[AllowAnonymous]
 [Route("/[controller]")]
 public class AuthenticationController : ControllerBase
 {
@@ -65,8 +66,6 @@ public class AuthenticationController : ControllerBase
         }
 
         var token = _tokenGenerator.GenerateToken(user);
-
-
 
         return Ok(token);
     }
