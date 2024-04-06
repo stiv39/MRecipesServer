@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MRecipes.Api.Mappers;
 using MRecipes.Api.Persistence;
 using MRecipes.Api.Services;
 
@@ -14,6 +15,7 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IArticleCommentService, ArticleCommentService>();
+builder.Services.AddScoped<IArticleMapper, ArticleMapper>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

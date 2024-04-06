@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MRecipes.Api.Contracts;
+using MRecipes.Api.Mappers;
 using MRecipes.Api.Models;
 using MRecipes.Api.Services;
 
@@ -10,14 +11,17 @@ public class ArticlesController : ControllerBase
 {
     private readonly IArticleService _articleService;
     private readonly IArticleCommentService _articleCommentService;
+    private readonly IArticleMapper _articleMapper;
 
     public ArticlesController(
         IArticleService articleService,
         IArticleCommentService articleCommentService
-        )
+,
+        IArticleMapper articleMapper)
     {
         _articleService = articleService;
         _articleCommentService = articleCommentService;
+        _articleMapper = articleMapper;
     }
 
     [HttpGet("{id}")]
@@ -30,19 +34,7 @@ public class ArticlesController : ControllerBase
             return NotFound();
         }
 
-        var dto = new ArticleDetailsDto
-        {
-            Id = article.Id,
-            Title = article.Title,
-            Description = article.Description,
-            Image = article.Image,
-            Author = article.Author.Name,
-            DateAdded = article.DateAdded,
-            Ingredients = article.Ingredients.Select(i => i.Name).ToList(),
-            Tags = article.Tags.Select(i => i.Tag.Name).ToList(),
-            Steps = article.Steps.Select(i => i.Name).ToList(),
-            ArticleComments = article.Comments.OrderByDescending(ac => ac.DateAdded).Select(c => new ArticleCommentDto { Id = c.Id, Name = c.Name, Description = c.Description, DateAdded = c.DateAdded }).ToList()
-        };
+        var dto = _articleMapper.ToArticleDetailsDto(article);
 
         return Ok(dto);
     }
@@ -52,7 +44,7 @@ public class ArticlesController : ControllerBase
     {
         var articles = await _articleService.GetArticlesAsync(searchTerm, tags, cancellationToken);
 
-        return Ok(new ArticleResponse { Items = articles.Select(ToArticleDto).ToList() });
+        return Ok(_articleMapper.ToArticleResponse(articles));
     }
 
     [HttpPost]
@@ -105,7 +97,7 @@ public class ArticlesController : ControllerBase
     {
         var tags = await _articleService.GetArticleTagsAsync(cancellationToken);
 
-        return Ok(tags.Select(t => new TagDto { Name = t.Name }).ToList());
+        return Ok(tags.Select(_articleMapper.ToTagDto).ToList());
     }
 
     [HttpPost("comment")]
@@ -122,18 +114,5 @@ public class ArticlesController : ControllerBase
         var result = await _articleCommentService.DeleteArticleCommentAsync(id, cancellationToken);
 
         return result ? NoContent() : BadRequest();
-    }
-
-    private ArticleDto ToArticleDto(Article article)
-    {
-        return new ArticleDto
-        {
-            Id = article.Id,
-            Author = article.Author.Name,
-            Title = article.Title,
-            DateAdded = article.DateAdded,
-            Image = article.Image,
-            Tags = string.Join(",", article.Tags.Select(at => at.Tag.Name).ToList())
-        };
     }
 }
