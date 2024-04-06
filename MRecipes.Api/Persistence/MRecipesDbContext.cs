@@ -14,11 +14,17 @@ public class MRecipesDbContext : DbContext
     public DbSet<Tag> Tags { get; set; }
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<ArticleComment> ArticleComments { get; set; }
+    public DbSet<User> Users { get; set; }
 
      protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
             .ApplyConfigurationsFromAssembly(typeof(MRecipesDbContext).Assembly);
+
+        modelBuilder.Entity<User>().HasData(
+            new User { Id = Guid.NewGuid(), Email = "user@gmail.com", Name = "JustUser", Password = "pw", Role = UserRole.User, BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-20)) },
+            new User { Id = Guid.NewGuid(), Email = "admin@gmail.com", Name = "JustAdmin", Password = "admin", Role = UserRole.Admin, BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-30)) }
+            );
 
         modelBuilder.Entity<Author>().HasData(
             new Author { Id = Guid.Parse("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"), Name = "Admin" }
@@ -212,7 +218,7 @@ public class MRecipesDbContext : DbContext
             );
 
         modelBuilder.Entity<ArticleComment>().HasData(
-            new ArticleComment { Id = Guid.NewGuid(), ArticleId = Guid.Parse("a2c30491-5461-4e7f-b13d-d1d9d268206f"), Name = "jozka", Description = "mnam do pyska", DateAdded = DateTime.Now.AddDays(-2)  }
+            new ArticleComment { Id = Guid.NewGuid(), ArticleId = Guid.Parse("a2c30491-5461-4e7f-b13d-d1d9d268206f"), Name = "jozka", Description = "mnam do pyska", DateAdded = DateTime.Now.AddDays(-2) }
             );
 
         base.OnModelCreating(modelBuilder);

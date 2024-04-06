@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MRecipes.Api.Contracts;
 using MRecipes.Api.Mappers;
-using MRecipes.Api.Models;
 using MRecipes.Api.Services;
 
 namespace MRecipes.Api.Controllers;
