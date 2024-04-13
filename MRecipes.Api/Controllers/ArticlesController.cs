@@ -39,7 +39,6 @@ public class ArticlesController : ControllerBase
         return Ok(dto);
     }
 
-    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IActionResult> GetArticles(string searchTerm, string tags, CancellationToken cancellationToken)
     {

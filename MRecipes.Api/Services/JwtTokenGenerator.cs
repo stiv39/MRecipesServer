@@ -1,17 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MRecipes.Api.Models;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace MRecipes.Api.Services;
-
-internal static class CustomClaims
-{
-    internal const string UserRole = "UserRole";
-}
 
 public interface IJwtTokenGenerator
 {
@@ -32,13 +26,13 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
-                SecurityAlgorithms.HmacSha256);
+                SecurityAlgorithms.HmacSha256Signature);
 
         var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Name, user.Name),
-                new Claim(CustomClaims.UserRole, user.Role.ToString()),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 

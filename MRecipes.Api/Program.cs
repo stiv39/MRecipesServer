@@ -34,7 +34,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuerSigningKey = true,
+        ValidateIssuerSigningKey = false,
         ValidateAudience = false,
         ValidateIssuer = false,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
