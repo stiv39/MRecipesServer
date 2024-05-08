@@ -19,14 +19,15 @@ public class PasswordService : IPasswordService
     {
         var passwordHash = Convert.ToHexString(CreatePassword(password, out var salt));
 
-        passwordSalt = salt;
-
+        passwordSalt = Convert.ToBase64String(Encoding.UTF8.GetBytes(salt));
+        
         return passwordHash;
     }
 
     public bool VerifyPassword(string password, string hash, string salt)
     {
-        var hashToCompate = HashPassword(password, salt);
+        var decodedSalt = Encoding.UTF8.GetString(Convert.FromBase64String(salt));
+        var hashToCompate = HashPassword(password, decodedSalt);
         return CryptographicOperations.FixedTimeEquals(hashToCompate, Convert.FromHexString(hash));
     }
 

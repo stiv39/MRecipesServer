@@ -22,8 +22,26 @@ public class MRecipesDbContext : DbContext
             .ApplyConfigurationsFromAssembly(typeof(MRecipesDbContext).Assembly);
 
         modelBuilder.Entity<User>().HasData(
-            new User { Id = Guid.NewGuid(), Email = "user@gmail.com", Name = "JustUser", Password = "pw", Role = UserRole.User, BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-20)) },
-            new User { Id = Guid.NewGuid(), Email = "admin@gmail.com", Name = "JustAdmin", Password = "admin", Role = UserRole.Admin, BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-30)) }
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Email = "user@gmail.com",
+                Name = "JustUser",
+                PasswordHash = "A10EF1777E1CE5BA2A50A7B452CD4B3FF69B3A6BAAA8808CDB0603A5E06B2942FF88BE51F507E36404D20609153A58EAA32B15C4EDD48111CFA0C7B0EBABE6C0",
+                PasswordSalt = "aw18He+/ve+/vQBtO++/vVbvv709Ee+/ve+/vS9bIhjvv73vv73vv70M77+9Ae+/vTnvv70977+9Lhvvv73vv70w77+9Le+/ve+/ve+/vW9byqHvv73vv70zNSjvv73vv71L77+9Fzzvv70DSe+/ve+/ve+/ve+/vS8=",
+                Role = UserRole.User,
+                BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-20))
+            },
+            new User
+            {
+                Id = Guid.NewGuid(),
+                Email = "admin@gmail.com",
+                Name = "JustAdmin",
+                PasswordHash = "72FB6CEA3520ACB1BF2AA3D2110B31A1DC12E342C5D446CF2CA290E064C7B5A138D96F358466E5C4349E739635716D4544F23DDB8BAE0903F23C81B6FB887420",
+                PasswordSalt = "77+9eQwb77+92bhUXxEAE23vv73vv705e++/ve+/ve+/ve+/vRvvv71V77+9cu+/vTbvv70777+9ay9W77+977+977+977+9Oe+/ve+/vVDvv73vv70o77+977+9FGHvv70vD++/vUDvv73vv73vv73dnXvvv71S77+9KA==",
+                Role = UserRole.Admin,
+                BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-30))
+            }
             );
 
         modelBuilder.Entity<Author>().HasData(
