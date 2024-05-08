@@ -34,7 +34,7 @@ public class AuthenticationController : ControllerBase
         }
         var id = Guid.NewGuid();
 
-        var hash = _passwordService.EncryptPassword("admin", out string salt);
+        var hash = _passwordService.EncryptPassword(request.Password, out string salt);
 
         var user = new User
         {
