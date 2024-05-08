@@ -52,6 +52,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IArticleCommentService, ArticleCommentService>();
 builder.Services.AddScoped<IArticleMapper, ArticleMapper>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();

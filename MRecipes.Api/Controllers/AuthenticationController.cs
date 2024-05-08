@@ -14,11 +14,13 @@ public class AuthenticationController : ControllerBase
 {
     private readonly MRecipesDbContext _dbContext;
     private readonly IJwtTokenGenerator _tokenGenerator;
+    private readonly IPasswordService _passwordService;
 
-    public AuthenticationController(MRecipesDbContext dbContext, IJwtTokenGenerator tokenGenerator)
+    public AuthenticationController(MRecipesDbContext dbContext, IJwtTokenGenerator tokenGenerator, IPasswordService passwordService)
     {
         _dbContext = dbContext;
         _tokenGenerator = tokenGenerator;
+        _passwordService = passwordService;
     }
 
     [HttpPost("/register")]
@@ -26,12 +28,13 @@ public class AuthenticationController : ControllerBase
     {
         var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email || u.Name == request.Name);
 
-        if(existingUser != null)
+        if (existingUser != null)
         {
             return BadRequest();
         }
-
         var id = Guid.NewGuid();
+
+        var hash = _passwordService.EncryptPassword("admin", out string salt);
 
         var user = new User
         {
@@ -39,7 +42,8 @@ public class AuthenticationController : ControllerBase
             Email = request.Email,
             Name = request.Name,
             BirthDate = request.BirthDate,
-            Password = request.Password, // TO DO: Hash pw
+            PasswordHash = hash,
+            PasswordSalt = salt,
             Role = UserRole.User 
         };
 
@@ -60,7 +64,7 @@ public class AuthenticationController : ControllerBase
             return NotFound();
         }
 
-        if(user.Password != dto.Password) // TO DO: decrypt pw
+        if(!_passwordService.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
         {
             return BadRequest("Wrong credentials");
         }
