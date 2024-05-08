@@ -7,7 +7,7 @@ namespace MRecipes.Api.Services;
 
 public interface IArticleService
 {
-    Task<Article> GetArticleByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<Article?> GetArticleByIdAsync(Guid id, CancellationToken cancellationToken);
     Task<List<Article>> GetArticlesAsync(string searchTerm, string tags, CancellationToken cancellationToken);
     Task<Guid?> CreateArticleAsync(AddArticleDto dto, CancellationToken cancellationToken);
     Task<bool> UpdateArticleAsync(UpdateArticleDto dto, CancellationToken cancellationToken);
@@ -24,9 +24,9 @@ public class ArticleService : IArticleService
         _dbContext = dbContext;
     }
 
-    public async Task<Article> GetArticleByIdAsync(Guid id, CancellationToken cancellationToken)
+    public Task<Article?> GetArticleByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Articles
+        return _dbContext.Articles
             .Include(a => a.Author)
             .Include(a => a.Tags).ThenInclude(t => t.Tag)
             .Include(a => a.Ingredients)
@@ -45,10 +45,10 @@ public class ArticleService : IArticleService
 
         if (searchTerm != null && searchTerm != "")
         {
-            articles = articles.Where(article => article.Title.ToLower().Contains(searchTerm.ToLower())).ToList();
+            articles = articles.Where(article => article.Title.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
 
-        if (tags != null && tags.Any())
+        if (tags != null && tags.Length != 0)
         {
             var tagsArray = tags.Split(",").ToList();
             articles = articles.Where(article => tagsArray.All(tag => article.Tags.Any(articleTag => articleTag.Tag.Name.ToLower() == tag.Trim().ToLower()))).ToList();
