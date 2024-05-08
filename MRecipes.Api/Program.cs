@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using MRecipes.Api.Identity;
 using MRecipes.Api.Mappers;
 using MRecipes.Api.Persistence;
 using MRecipes.Api.Services;
@@ -39,7 +40,13 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(IdentityData.RoleUserPolicyName, p =>
+    {
+        p.RequireClaim(IdentityData.RoleUserClaimName, "Admin");
+    });
+});
 
 // Add services to the container.
 builder.Services.AddScoped<IArticleService, ArticleService>();

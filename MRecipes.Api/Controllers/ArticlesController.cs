@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MRecipes.Api.Contracts;
+using MRecipes.Api.Identity;
 using MRecipes.Api.Mappers;
 using MRecipes.Api.Services;
 
@@ -47,7 +48,7 @@ public class ArticlesController : ControllerBase
         return Ok(_articleMapper.ToArticleResponse(articles));
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = IdentityData.RoleUserPolicyName)]
     [HttpPost]
     public async Task<IActionResult> CreateArticle([FromBody] AddArticleDto dto, CancellationToken cancellationToken)
     {
@@ -66,7 +67,7 @@ public class ArticlesController : ControllerBase
         return result != null ? Ok(result) : BadRequest();
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = IdentityData.RoleUserPolicyName)]
     [HttpPut]
     public async Task<IActionResult> UpdateArticle([FromBody]UpdateArticleDto dto, CancellationToken cancellationToken)
     {
@@ -86,7 +87,7 @@ public class ArticlesController : ControllerBase
         return result ? Ok() : BadRequest();
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = IdentityData.RoleUserPolicyName)]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteArticle(Guid id, CancellationToken cancellationToken)
     {
@@ -111,7 +112,7 @@ public class ArticlesController : ControllerBase
         return result ?  Ok() : BadRequest();
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = IdentityData.RoleUserPolicyName)]
     [HttpDelete("comment/{id}")]
     public async Task<IActionResult> DeleteArticleComment(Guid id, CancellationToken cancellationToken)
     {
