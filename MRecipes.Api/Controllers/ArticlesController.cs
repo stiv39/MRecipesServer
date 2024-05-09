@@ -4,6 +4,7 @@ using MRecipes.Api.Contracts;
 using MRecipes.Api.Identity;
 using MRecipes.Api.Mappers;
 using MRecipes.Api.Services;
+using System.Security.Claims;
 
 namespace MRecipes.Api.Controllers;
 
@@ -48,7 +49,8 @@ public class ArticlesController : ControllerBase
         return Ok(_articleMapper.ToArticleResponse(articles));
     }
 
-    [Authorize(Policy = IdentityData.RoleUserPolicyName)]
+    [Authorize]
+    [RequiresClaim(ClaimTypes.Role, "Admin")]
     [HttpPost]
     public async Task<IActionResult> CreateArticle([FromBody] AddArticleDto dto, CancellationToken cancellationToken)
     {

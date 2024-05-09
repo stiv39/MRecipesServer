@@ -6,6 +6,7 @@ using MRecipes.Api.Identity;
 using MRecipes.Api.Mappers;
 using MRecipes.Api.Persistence;
 using MRecipes.Api.Services;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,7 +45,7 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy(IdentityData.RoleUserPolicyName, p =>
     {
-        p.RequireClaim(IdentityData.RoleUserClaimName, "Admin");
+        p.RequireClaim(ClaimTypes.Role, "Admin");
     });
 });
 

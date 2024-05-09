@@ -27,12 +27,12 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         var key = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
 
         var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Name, user.Name),
-                new Claim(ClaimTypes.Role, user.Role.ToString()),         
-            };
+        {
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Name, user.Name),
+            new Claim(ClaimTypes.Role, user.Role.ToString(), ClaimValueTypes.String),
+        };
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
