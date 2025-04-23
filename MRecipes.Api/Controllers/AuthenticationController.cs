@@ -50,7 +50,6 @@ public class AuthenticationController : ControllerBase
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-
         return Ok();
     }
 
@@ -64,6 +63,8 @@ public class AuthenticationController : ControllerBase
             return NotFound();
         }
 
+        if (user.Role == UserRole.User) { return Unauthorized(); }
+
         if(!_passwordService.VerifyPassword(dto.Password, user.PasswordHash, user.PasswordSalt))
         {
             return BadRequest("Wrong credentials");
@@ -71,6 +72,8 @@ public class AuthenticationController : ControllerBase
 
         var token = _tokenGenerator.GenerateToken(user);
 
-        return Ok(token);
+        var response = new LoginResponse(user.Role.ToString(), token);
+
+        return Ok(response);
     }
 }

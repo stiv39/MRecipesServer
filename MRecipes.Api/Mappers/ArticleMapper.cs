@@ -1,5 +1,6 @@
 ﻿using MRecipes.Api.Contracts;
 using MRecipes.Api.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MRecipes.Api.Mappers;
 
@@ -19,7 +20,7 @@ public class ArticleMapper : IArticleMapper
             Id = article.Id,
             Title = article.Title,
             Description = article.Description,
-            Image = article.Image,
+            Image = article.Image == null ? null : Convert.ToBase64String(article.Image.Image),
             Author = article.Author.Name,
             DateAdded = article.DateAdded,
             Ingredients = article.Ingredients.Select(i => i.Name).ToList(),
@@ -47,7 +48,7 @@ public class ArticleMapper : IArticleMapper
             Author = article.Author.Name,
             Title = article.Title,
             DateAdded = article.DateAdded,
-            Image = article.Image,
+            Image = article.Image == null ? null : Convert.ToBase64String(article.Image.Image),
             Tags = string.Join(",", article.Tags.Select(at => at.Tag.Name).ToList())
         };
     }

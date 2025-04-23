@@ -150,7 +150,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now,
                 Title = "Olivový hummus",
                 Description = "Ako tak pozerám do kalendára, Veľká noc je už za rohom! Tentokrát mi začiatok roka ubehol ultra rýchlo a človek sa ani nenazdá a bude tu máj a s ním aj ja - opäť o rok staršia. :D Ale nebudem predbiehať, teším sa na Veľkú noc a naše rodinné nedeľné raňajky. Veľkonočnú pasku, hrudku, vajcia natvrdo, údeniny, cviklu s chrenom a zemiakový šalát. Ale nie vždy musí byť Veľká noc len v tradičnom šate. :) Každý rok do nej pridávam aj nejakú tú novinku, naposledy to bola veľkonočná roláda s malinovým krémom, mrkvové mafiny, či avokádová nátierka s granátovým jablkom. A teraz sa môžu moji najbližší tešiť na výborný olivový hummus! Kombinácia cíceru, sezamovej pasty, cesnaku, citrónovej šťavy a olív Kalamata, je výborným krokom na vykročenie do inej svetovej kuchyne. :) Hummus servírovaný s chrumkavou cibuľkou, olivami, kolieskami uhorky a paradajok, pokvapkaný olivovým olejom - u nás doma sa zjedol rýchlosťou blesku a to nie sme milovníci cíceru. Všetky ingrediencie potrebné na tento recept, nájdete pod jednou strechou v Kauflande. Ak ešte nepoznáte ich značku K-Favourites, odporúčam vyskúšať - ingrediencie sú chuťovo výborné a cena príjemná.",
-                Image = "789"
+             //   Image = "789"
             },
             new Article
             {
@@ -159,7 +159,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-1),
                 Title = "Famózne paradajkové rizoto",
                 Description = "Tento víkend sme zvrtli novú variáciu rizota! Pôvodne som chcela spraviť tekvicové, ale z debničky na mňa \"žmurkali\" voňavé cherry paradajky, takže bolo spontánne rozhodnuté v prospech dnešného receptu na paradajkové rizoto. :) Rizoto je jeden z mojich najobľúbenejších receptov, jeho príprava nie je vôbec zložitá, stačí vám naň zopár ingrediencií a dokážete ho pripraviť na desiatky spôsobov v závislosti od sezóny. Na mojom blogu nájdete recept na hubové, ale i cviklové rizoto a čoskoro pribudnú aj ďalšie, keďže vás chcem naňho namotať :) Rizoto je úžasne krémové, prevoňané pečenými paradajkami s cesnakom a čerstvou bazalkou. Čochvíľa nám začne sezóna paradajok, tie skleníkové si však môžete dopriať už dnes a využiť ich rovno pri testovaní tohto receptu, prípadne odporúčam vyskúšať moju rýchlu paradajkovú polievku, paradajkový džem či mäsové guľky v paradajkovej omáčke. Verím, že si pochutíte!",
-                Image = "012"
+              //  Image = "012"
             },
             new Article
             {
@@ -168,7 +168,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-3),
                 Title = "Chrumkavá paradajková bruschetta",
                 Description = "Blíži sa jar a s ňou aj všetky milé stretnutia s našimi blízkymi. U nás doma som zaviedla tradíciu nedeľných dlhých raňajok a vždy keď máme pred sebou voľný víkend, rada na tieto dlhé raňajky pozývam aj svojich najbližších. Jedlo a konverzácie pri spoločnom stole, ktoré ho sprevádzajú, sú pre mňa jedny z najmilších okamihov, preto rada vymýšľam vždy nové a nové kombinácie jedál, ktorými by som ich pohostila. :) A najradšej sa inšpirujem práve v talianskej kuchyni, keďže tá je známa svojou jednoduchosťou, kvalitnými ingredienciami a pritom zaručene chutným výsledkom. Mnohí z vás už určite poznajú recept na chrumkavú paradajkovú bruschettu, ktorú nájdete v mojej prvej kuchárskej knihe. Tento recept je jej malou obmenou, je však vhodný pre všetkých bezlepkáčov, nakoľko v ňom nájdete aj tip na bezgluténové pečivo od Kauflandu. V ich sortimente nájdete pod značkou K-free bezgluténové pečivo a cestoviny, ktoré rada využívam pri príprave bezlepkových receptov. Na chrumkavú bruschettu vám stačí zopár ingrediencií a výsledok je neuveriteľne chutný! Budem sa tešiť, ak recept najbližšie vyskúšate a dáte mi vedieť, ako vám chutilo.",
-                Image = "345"
+              //  Image = "345"
             },
             new Article
             {
@@ -177,7 +177,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-7),
                 Title = "Zeleninový tart z lístkového cesta",
                 Description = "popis",
-                Image = "567"
+              //  Image = "567"
             },
             new Article
             {
@@ -186,7 +186,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-10),
                 Title = "Jednoduchý grécky šalát",
                 Description = "popis",
-                Image = "890"
+               // Image = "890"
             },
             new Article
             {
@@ -195,7 +195,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-12),
                 Title = "Arašidové brownies s malinami",
                 Description = "popis",
-                Image = "123"
+              //  Image = "123"
             },
             new Article
             {
@@ -204,7 +204,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-14),
                 Title = "Paella s morskými plodmi",
                 Description = "popis",
-                Image = "456"
+             //   Image = "456"
             },
             new Article
             {
@@ -213,7 +213,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-14),
                 Title = "Tikka Masala",
                 Description = "popis",
-                Image = "787"
+              //  Image = "787"
             },
             new Article
             {
@@ -222,7 +222,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-17),
                 Title = "Čokoládový tart",
                 Description = "popis",
-                Image = "011"
+              //  Image = "011"
             },
             new Article
             {
@@ -231,7 +231,7 @@ public class MRecipesDbContext : DbContext
                 DateAdded = DateTime.Now.AddDays(-25),
                 Title = "Špagety Bolognese",
                 Description = "popis",
-                Image = "341"
+             //   Image = "341"
             }
             );
 

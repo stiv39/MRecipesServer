@@ -26,5 +26,10 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
             .WithOne(ac => ac.Article)
             .HasForeignKey(ac => ac.ArticleId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(a => a.Image)
+            .WithOne(x => x.Article)
+            .HasForeignKey<ArticleImage>(x => x.ArticleId)
+            .OnDelete(DeleteBehavior.Cascade);       
     }
 }

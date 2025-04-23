@@ -5,6 +5,7 @@ using MRecipes.Api.Identity;
 using MRecipes.Api.Mappers;
 using MRecipes.Api.Services;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace MRecipes.Api.Controllers;
 
@@ -52,39 +53,42 @@ public class ArticlesController : ControllerBase
     [Authorize]
     [RequiresClaim(ClaimTypes.Role, "Admin")]
     [HttpPost]
-    public async Task<IActionResult> CreateArticle([FromBody] AddArticleDto dto, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateArticle([FromForm] IFormFile image, [FromForm] string dto, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(dto.Title) ||
-           string.IsNullOrWhiteSpace(dto.Description) ||
-           string.IsNullOrWhiteSpace(dto.Ingredients) ||
-           string.IsNullOrWhiteSpace(dto.Tags) ||
-           dto.Steps.Count <= 0
+        var dtoParsed = JsonSerializer.Deserialize<AddArticleDto>(dto);
+        if (dtoParsed == null ||
+           string.IsNullOrWhiteSpace(dtoParsed.Title) ||
+           string.IsNullOrWhiteSpace(dtoParsed.Description) ||
+           string.IsNullOrWhiteSpace(dtoParsed.Ingredients) ||
+           string.IsNullOrWhiteSpace(dtoParsed.Tags) ||
+           dtoParsed.Steps.Count <= 0
           )
         {
             return BadRequest("Fill all mandatory fields");
         }
 
-        var result = await _articleService.CreateArticleAsync(dto, cancellationToken);
+        var result = await _articleService.CreateArticleAsync(dtoParsed, image, cancellationToken);
 
         return result != null ? Ok(result) : BadRequest();
     }
 
     [Authorize(Policy = IdentityData.RoleUserPolicyName)]
     [HttpPut]
-    public async Task<IActionResult> UpdateArticle([FromBody]UpdateArticleDto dto, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateArticle([FromForm] IFormFile image, [FromForm] string dto, CancellationToken cancellationToken)
     {
-        if (Guid.Empty == dto.Id ||
-            string.IsNullOrWhiteSpace(dto.Title) ||
-           string.IsNullOrWhiteSpace(dto.Description) ||
-           string.IsNullOrWhiteSpace(dto.Ingredients) ||
-           string.IsNullOrWhiteSpace(dto.Tags) ||
-           dto.Steps.Count <= 0
+        var dtoParsed = JsonSerializer.Deserialize<UpdateArticleDto>(dto);
+        if (dtoParsed == null || Guid.Empty == dtoParsed.Id ||
+            string.IsNullOrWhiteSpace(dtoParsed.Title) ||
+           string.IsNullOrWhiteSpace(dtoParsed.Description) ||
+           string.IsNullOrWhiteSpace(dtoParsed.Ingredients) ||
+           string.IsNullOrWhiteSpace(dtoParsed.Tags) ||
+           dtoParsed.Steps.Count <= 0
         )
         {
             return BadRequest("Fill all mandatory fields");
         }
 
-        var result = await _articleService.UpdateArticleAsync(dto, cancellationToken);
+        var result = await _articleService.UpdateArticleAsync(dtoParsed, image, cancellationToken);
         
         return result ? Ok() : BadRequest();
     }

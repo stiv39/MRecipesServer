@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using MRecipes.Api.Contracts;
 using MRecipes.Api.Models;
 using MRecipes.Api.Persistence;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MRecipes.Api.Services;
 
@@ -9,8 +11,8 @@ public interface IArticleService
 {
     Task<Article?> GetArticleByIdAsync(Guid id, CancellationToken cancellationToken);
     Task<List<Article>> GetArticlesAsync(string searchTerm, string tags, CancellationToken cancellationToken);
-    Task<Guid?> CreateArticleAsync(AddArticleDto dto, CancellationToken cancellationToken);
-    Task<bool> UpdateArticleAsync(UpdateArticleDto dto, CancellationToken cancellationToken);
+    Task<Guid?> CreateArticleAsync(AddArticleDto dto, IFormFile? formFile, CancellationToken cancellationToken);
+    Task<bool> UpdateArticleAsync(UpdateArticleDto dto, IFormFile? formFile, CancellationToken cancellationToken);
     Task<bool> DeleteArticleAsync(Guid id, CancellationToken cancellationToken);
     Task<List<Tag>> GetArticleTagsAsync(CancellationToken cancellationToken);
 }
@@ -39,6 +41,7 @@ public class ArticleService : IArticleService
     {
         var articles = await _dbContext.Articles
           .Include(a => a.Author)
+          .Include(a => a.Image)
           .Include(a => a.Tags).ThenInclude(t => t.Tag)
           .OrderByDescending(a => a.DateAdded)
           .ToListAsync(cancellationToken);
@@ -57,7 +60,7 @@ public class ArticleService : IArticleService
         return articles;
     }
 
-    public async Task<Guid?> CreateArticleAsync(AddArticleDto dto, CancellationToken cancellationToken)
+    public async Task<Guid?> CreateArticleAsync(AddArticleDto dto, IFormFile? formFile, CancellationToken cancellationToken)
     {
         try
         {
@@ -78,7 +81,7 @@ public class ArticleService : IArticleService
             }
 
             // map dto to article
-            var newArticle = new Article
+            var articleToAdd = new Article
             {
                 Id = id,
                 Title = dto.Title,
@@ -87,37 +90,51 @@ public class ArticleService : IArticleService
                 Ingredients = dto.Ingredients.Split(",").Select(ingredient => new Ingredient { ArticleId = id, Name = ingredient.Trim() }).ToList(),
                 DateAdded = DateTime.Now,
                 AuthorId = Guid.Parse("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                Image = "",
                 Tags = articleTags
             };
 
+            if (formFile != null)
+            {
+                var bytes = await GetBytesAsync(formFile, cancellationToken);
+
+                articleToAdd.Image = new ArticleImage { ArticleId = id, Image = bytes };
+            }
+
             // add article
-            await _dbContext.Articles.AddAsync(newArticle, cancellationToken);
+            await _dbContext.Articles.AddAsync(articleToAdd, cancellationToken);
 
             // save changes
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return id;
         }
-        catch(Exception)
+        catch (Exception)
         {
             return null;
         }
     }
 
-    public async Task<bool> UpdateArticleAsync(UpdateArticleDto dto, CancellationToken cancellationToken)
+    public async Task<bool> UpdateArticleAsync(UpdateArticleDto dto, IFormFile? formFile, CancellationToken cancellationToken)
     {
         try
         {
             var articleFromDb = await _dbContext.Articles
            .Include(a => a.Ingredients)
            .Include(a => a.Tags)
+           .Include(a => a.Image)
            .Include(a => a.Steps)
            .FirstOrDefaultAsync(a => a.Id == dto.Id);
 
             if (articleFromDb == null)
             {
                 return false;
+            }
+
+            if (formFile != null)
+            {
+                var bytes = await GetBytesAsync(formFile, cancellationToken);
+
+                articleFromDb.Image = new ArticleImage { ArticleId = articleFromDb.Id, Image = bytes };
             }
 
             var articleTags = new List<ArticleTag>();
@@ -142,7 +159,7 @@ public class ArticleService : IArticleService
             _dbContext.SaveChanges();
             return true;
         }
-        catch(Exception)
+        catch (Exception)
         {
             return false;
         }
@@ -179,5 +196,17 @@ public class ArticleService : IArticleService
     public async Task<List<Tag>> GetArticleTagsAsync(CancellationToken cancellationToken)
     {
         return await _dbContext.Tags.ToListAsync(cancellationToken);
+    }
+
+    private static async Task<byte[]> GetBytesAsync(IFormFile file, CancellationToken cancellationToken)
+    {
+        byte[] imageBytes;
+        using (var memoryStream = new MemoryStream())
+        {
+            await file.CopyToAsync(memoryStream, cancellationToken);
+            imageBytes = memoryStream.ToArray();
+        }
+
+        return imageBytes;
     }
 }
