@@ -3,12 +3,11 @@ using System;
 using MRecipes.Api.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MRecipes.Api.Migrations
+namespace MRecipes.Api.Persistence.Migrations
 {
     [DbContext(typeof(MRecipesDbContext))]
     partial class MRecipesDbContextModelSnapshot : ModelSnapshot
@@ -16,31 +15,27 @@ namespace MRecipes.Api.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
 
             modelBuilder.Entity("MRecipes.Api.Models.Article", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -53,7 +48,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 4, 7, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(240),
+                            DateAdded = new DateTime(2025, 4, 24, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6162),
                             Description = "Ako tak pozerám do kalendára, Veľká noc je už za rohom! Tentokrát mi začiatok roka ubehol ultra rýchlo a človek sa ani nenazdá a bude tu máj a s ním aj ja - opäť o rok staršia. :D Ale nebudem predbiehať, teším sa na Veľkú noc a naše rodinné nedeľné raňajky. Veľkonočnú pasku, hrudku, vajcia natvrdo, údeniny, cviklu s chrenom a zemiakový šalát. Ale nie vždy musí byť Veľká noc len v tradičnom šate. :) Každý rok do nej pridávam aj nejakú tú novinku, naposledy to bola veľkonočná roláda s malinovým krémom, mrkvové mafiny, či avokádová nátierka s granátovým jablkom. A teraz sa môžu moji najbližší tešiť na výborný olivový hummus! Kombinácia cíceru, sezamovej pasty, cesnaku, citrónovej šťavy a olív Kalamata, je výborným krokom na vykročenie do inej svetovej kuchyne. :) Hummus servírovaný s chrumkavou cibuľkou, olivami, kolieskami uhorky a paradajok, pokvapkaný olivovým olejom - u nás doma sa zjedol rýchlosťou blesku a to nie sme milovníci cíceru. Všetky ingrediencie potrebné na tento recept, nájdete pod jednou strechou v Kauflande. Ak ešte nepoznáte ich značku K-Favourites, odporúčam vyskúšať - ingrediencie sú chuťovo výborné a cena príjemná.",
                             Title = "Olivový hummus"
                         },
@@ -61,7 +56,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 4, 6, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(243),
+                            DateAdded = new DateTime(2025, 4, 23, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6166),
                             Description = "Tento víkend sme zvrtli novú variáciu rizota! Pôvodne som chcela spraviť tekvicové, ale z debničky na mňa \"žmurkali\" voňavé cherry paradajky, takže bolo spontánne rozhodnuté v prospech dnešného receptu na paradajkové rizoto. :) Rizoto je jeden z mojich najobľúbenejších receptov, jeho príprava nie je vôbec zložitá, stačí vám naň zopár ingrediencií a dokážete ho pripraviť na desiatky spôsobov v závislosti od sezóny. Na mojom blogu nájdete recept na hubové, ale i cviklové rizoto a čoskoro pribudnú aj ďalšie, keďže vás chcem naňho namotať :) Rizoto je úžasne krémové, prevoňané pečenými paradajkami s cesnakom a čerstvou bazalkou. Čochvíľa nám začne sezóna paradajok, tie skleníkové si však môžete dopriať už dnes a využiť ich rovno pri testovaní tohto receptu, prípadne odporúčam vyskúšať moju rýchlu paradajkovú polievku, paradajkový džem či mäsové guľky v paradajkovej omáčke. Verím, že si pochutíte!",
                             Title = "Famózne paradajkové rizoto"
                         },
@@ -69,7 +64,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 4, 4, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(246),
+                            DateAdded = new DateTime(2025, 4, 21, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6171),
                             Description = "Blíži sa jar a s ňou aj všetky milé stretnutia s našimi blízkymi. U nás doma som zaviedla tradíciu nedeľných dlhých raňajok a vždy keď máme pred sebou voľný víkend, rada na tieto dlhé raňajky pozývam aj svojich najbližších. Jedlo a konverzácie pri spoločnom stole, ktoré ho sprevádzajú, sú pre mňa jedny z najmilších okamihov, preto rada vymýšľam vždy nové a nové kombinácie jedál, ktorými by som ich pohostila. :) A najradšej sa inšpirujem práve v talianskej kuchyni, keďže tá je známa svojou jednoduchosťou, kvalitnými ingredienciami a pritom zaručene chutným výsledkom. Mnohí z vás už určite poznajú recept na chrumkavú paradajkovú bruschettu, ktorú nájdete v mojej prvej kuchárskej knihe. Tento recept je jej malou obmenou, je však vhodný pre všetkých bezlepkáčov, nakoľko v ňom nájdete aj tip na bezgluténové pečivo od Kauflandu. V ich sortimente nájdete pod značkou K-free bezgluténové pečivo a cestoviny, ktoré rada využívam pri príprave bezlepkových receptov. Na chrumkavú bruschettu vám stačí zopár ingrediencií a výsledok je neuveriteľne chutný! Budem sa tešiť, ak recept najbližšie vyskúšate a dáte mi vedieť, ako vám chutilo.",
                             Title = "Chrumkavá paradajková bruschetta"
                         },
@@ -77,7 +72,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("4c26d85b-3146-4ed2-9f2c-3993e02ee888"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 31, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(249),
+                            DateAdded = new DateTime(2025, 4, 17, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6173),
                             Description = "popis",
                             Title = "Zeleninový tart z lístkového cesta"
                         },
@@ -85,7 +80,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("2e30dc7c-0c1f-4438-9a3e-3f47792fc82d"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 28, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(251),
+                            DateAdded = new DateTime(2025, 4, 14, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6176),
                             Description = "popis",
                             Title = "Jednoduchý grécky šalát"
                         },
@@ -93,7 +88,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("0860d50a-927f-4d9c-8780-6f8054c20814"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 26, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(253),
+                            DateAdded = new DateTime(2025, 4, 12, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6179),
                             Description = "popis",
                             Title = "Arašidové brownies s malinami"
                         },
@@ -101,7 +96,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("c2902ef3-8e41-4f88-b9a3-31981e4ac220"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 24, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(256),
+                            DateAdded = new DateTime(2025, 4, 10, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6181),
                             Description = "popis",
                             Title = "Paella s morskými plodmi"
                         },
@@ -109,7 +104,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("b5e5d3c7-6b28-456e-87ed-d53c10c3f36d"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 24, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(258),
+                            DateAdded = new DateTime(2025, 4, 10, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6183),
                             Description = "popis",
                             Title = "Tikka Masala"
                         },
@@ -117,7 +112,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("90378085-c0de-4c91-a83c-d216d246b2b1"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 21, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(261),
+                            DateAdded = new DateTime(2025, 4, 7, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6186),
                             Description = "popis",
                             Title = "Čokoládový tart"
                         },
@@ -125,7 +120,7 @@ namespace MRecipes.Api.Migrations
                         {
                             Id = new Guid("e62c4460-2829-4f20-b747-5ef468d02d17"),
                             AuthorId = new Guid("f0b3d7e5-c3d6-4f91-914d-877c1b63c1f5"),
-                            DateAdded = new DateTime(2025, 3, 13, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(263),
+                            DateAdded = new DateTime(2025, 3, 30, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6188),
                             Description = "popis",
                             Title = "Špagety Bolognese"
                         });
@@ -135,21 +130,21 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -160,9 +155,9 @@ namespace MRecipes.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("639cd036-1306-42a8-84bc-22943f959242"),
+                            Id = new Guid("5e2eca48-f299-4ffd-8c7c-e2de7e837420"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
-                            DateAdded = new DateTime(2025, 4, 5, 21, 9, 4, 569, DateTimeKind.Local).AddTicks(280),
+                            DateAdded = new DateTime(2025, 4, 22, 20, 19, 12, 161, DateTimeKind.Local).AddTicks(6205),
                             Description = "mnam do pyska",
                             Name = "jozka"
                         });
@@ -172,14 +167,14 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("BLOB");
 
                     b.HasKey("Id");
 
@@ -193,13 +188,13 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("TagId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -212,121 +207,121 @@ namespace MRecipes.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a9b90003-db1b-4a7e-9d5c-81d30fb33f50"),
+                            Id = new Guid("9d50e034-75d1-4d33-91eb-586e9ccddce9"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             TagId = new Guid("8ee5d1b8-08e5-43e5-bdc9-28dc607e5825")
                         },
                         new
                         {
-                            Id = new Guid("d04bb168-fc91-4142-9803-f01e8dd2a691"),
+                            Id = new Guid("502ee046-dde4-4e85-83b0-1ac14f9294f8"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             TagId = new Guid("a1b6b079-1c3e-4bb0-8b33-ae6f3dc53e3d")
                         },
                         new
                         {
-                            Id = new Guid("9ebeba0f-96f7-4419-89b0-3f986f7dfd54"),
+                            Id = new Guid("8d41eb1c-ab3c-46f6-be4b-107480533811"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             TagId = new Guid("8ee5d1b8-08e5-43e5-bdc9-28dc607e5825")
                         },
                         new
                         {
-                            Id = new Guid("cd1795e4-fd67-46b3-82ce-9926c426719d"),
+                            Id = new Guid("90b9016e-6416-4b91-8d6f-936757ed6beb"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             TagId = new Guid("f1db63a1-21f1-49c4-8f0c-208e1f4a8ff5")
                         },
                         new
                         {
-                            Id = new Guid("98ece588-38b5-419c-8cb0-675ee4f4570a"),
+                            Id = new Guid("e1d1a55c-b915-41d0-935f-f4d24e02d7a4"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             TagId = new Guid("b1eac43b-9a2a-4e37-94d2-0a59a493c7d3")
                         },
                         new
                         {
-                            Id = new Guid("30c51e05-a53f-46b0-b614-2c7316eea70b"),
+                            Id = new Guid("0b094f41-8f87-4fb0-bc0d-46c2d24c5aa9"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             TagId = new Guid("f1db63a1-21f1-49c4-8f0c-208e1f4a8ff5")
                         },
                         new
                         {
-                            Id = new Guid("4c5d9d9e-2d67-4bc3-9df2-c3006ac4c962"),
+                            Id = new Guid("e67b1a40-8f3a-43f4-b962-f6cbf29e3efa"),
                             ArticleId = new Guid("4c26d85b-3146-4ed2-9f2c-3993e02ee888"),
                             TagId = new Guid("8ee5d1b8-08e5-43e5-bdc9-28dc607e5825")
                         },
                         new
                         {
-                            Id = new Guid("f11b74a0-effd-4ee8-a476-602200d33549"),
+                            Id = new Guid("c42f0a7d-b068-4bee-8d05-f6fc923ec703"),
                             ArticleId = new Guid("2e30dc7c-0c1f-4438-9a3e-3f47792fc82d"),
                             TagId = new Guid("f1db63a1-21f1-49c4-8f0c-208e1f4a8ff5")
                         },
                         new
                         {
-                            Id = new Guid("8a6c3cd7-f5b2-445f-9959-1bead9847cab"),
+                            Id = new Guid("63d8f7cb-87b7-46cc-a7ec-3ebac81f10b7"),
                             ArticleId = new Guid("2e30dc7c-0c1f-4438-9a3e-3f47792fc82d"),
                             TagId = new Guid("c1d698f0-1f87-4c30-9a31-c26e75d99c4f")
                         },
                         new
                         {
-                            Id = new Guid("fdf9d1da-11c6-4573-a972-edf15bfe698a"),
+                            Id = new Guid("d888755c-749e-43bb-b20e-dad854ab7c8f"),
                             ArticleId = new Guid("0860d50a-927f-4d9c-8780-6f8054c20814"),
                             TagId = new Guid("a1f7fd4e-7c7a-4d5b-8a5c-56f5e2d4d18c")
                         },
                         new
                         {
-                            Id = new Guid("f524d683-db8f-4de9-b959-e6af75fb7849"),
+                            Id = new Guid("06689632-7dfb-4263-a1fe-86ad19d312ca"),
                             ArticleId = new Guid("0860d50a-927f-4d9c-8780-6f8054c20814"),
                             TagId = new Guid("f1db63a1-21f1-49c4-8f0c-208e1f4a8ff5")
                         },
                         new
                         {
-                            Id = new Guid("282cf38b-1796-40be-8f5a-d07a10b23e7d"),
+                            Id = new Guid("0689b2bf-4a15-45b9-9bda-40ef5a84e85f"),
                             ArticleId = new Guid("0860d50a-927f-4d9c-8780-6f8054c20814"),
                             TagId = new Guid("b1f4c4c4-9b64-4aef-9016-4d8a26c44843")
                         },
                         new
                         {
-                            Id = new Guid("5e903599-efab-4aaa-9f06-3efe96ace3b4"),
+                            Id = new Guid("2cc9b314-0d77-47d4-b9dc-97fb5a91aeb2"),
                             ArticleId = new Guid("c2902ef3-8e41-4f88-b9a3-31981e4ac220"),
                             TagId = new Guid("8ee5d1b8-08e5-43e5-bdc9-28dc607e5825")
                         },
                         new
                         {
-                            Id = new Guid("fc61dbc0-354b-411f-abe4-fe231585beef"),
+                            Id = new Guid("fb7dd54f-82c0-47e8-8eb2-560fdf19bad1"),
                             ArticleId = new Guid("c2902ef3-8e41-4f88-b9a3-31981e4ac220"),
                             TagId = new Guid("a1b6b079-1c3e-4bb0-8b33-ae6f3dc53e3d")
                         },
                         new
                         {
-                            Id = new Guid("68d652c7-0e74-4ed1-b773-1ff0954e9216"),
+                            Id = new Guid("1b79e6fe-7041-4d26-95c0-572920daa51f"),
                             ArticleId = new Guid("b5e5d3c7-6b28-456e-87ed-d53c10c3f36d"),
                             TagId = new Guid("8ee5d1b8-08e5-43e5-bdc9-28dc607e5825")
                         },
                         new
                         {
-                            Id = new Guid("c10411c5-20cf-4ee5-85ea-ff09123cd688"),
+                            Id = new Guid("13f10a3d-3ba7-4146-a428-64a3d4981b17"),
                             ArticleId = new Guid("b5e5d3c7-6b28-456e-87ed-d53c10c3f36d"),
                             TagId = new Guid("f1db63a1-21f1-49c4-8f0c-208e1f4a8ff5")
                         },
                         new
                         {
-                            Id = new Guid("1db39e77-1ec0-42ec-b3c3-26437dfc16ca"),
+                            Id = new Guid("f970ee82-f789-4373-b0d9-1cb2215fd3c2"),
                             ArticleId = new Guid("90378085-c0de-4c91-a83c-d216d246b2b1"),
                             TagId = new Guid("a1f7fd4e-7c7a-4d5b-8a5c-56f5e2d4d18c")
                         },
                         new
                         {
-                            Id = new Guid("8d918b57-07e1-47ea-b84a-0923e65e3d8e"),
+                            Id = new Guid("1257ba62-43a8-4abe-bf9c-00d8e65ef0c4"),
                             ArticleId = new Guid("90378085-c0de-4c91-a83c-d216d246b2b1"),
                             TagId = new Guid("b1f4c4c4-9b64-4aef-9016-4d8a26c44843")
                         },
                         new
                         {
-                            Id = new Guid("084f311b-c45a-47db-87ff-cdd2a3ff5a28"),
+                            Id = new Guid("2c0a0dc6-df32-4cd6-ba9a-dbf58b8ffbca"),
                             ArticleId = new Guid("e62c4460-2829-4f20-b747-5ef468d02d17"),
                             TagId = new Guid("8ee5d1b8-08e5-43e5-bdc9-28dc607e5825")
                         },
                         new
                         {
-                            Id = new Guid("2d87fc6a-4285-404d-8cdc-8c0a57df59a2"),
+                            Id = new Guid("82577e65-652a-41db-9b91-9d27a9f96539"),
                             ArticleId = new Guid("e62c4460-2829-4f20-b747-5ef468d02d17"),
                             TagId = new Guid("f1db63a1-21f1-49c4-8f0c-208e1f4a8ff5")
                         });
@@ -336,11 +331,11 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -358,14 +353,14 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -376,187 +371,187 @@ namespace MRecipes.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2bfb6ef9-dc6b-49d1-8052-1c05f6e93dc1"),
+                            Id = new Guid("d90121cb-4ca8-48ca-a420-2d2cc0499e94"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "250 g predvareného cíceru"
                         },
                         new
                         {
-                            Id = new Guid("fe97e253-eb84-4c65-be92-3a5baa2631a7"),
+                            Id = new Guid("fbfe6ead-90fe-46da-b426-89b37d0961d2"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "60 g sezamovej pasty"
                         },
                         new
                         {
-                            Id = new Guid("fff406fe-8a2d-415e-8e7e-1adf9776f3cd"),
+                            Id = new Guid("6f967387-8440-477c-8cfc-03b0fb486400"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "40 g nakrájaných olív Kalamata (ja som použila olivy Kalamata K-Favourites, ktoré nájdete v Kauflande)"
                         },
                         new
                         {
-                            Id = new Guid("1a53f80e-1d45-4773-8fb3-d551a2ec3801"),
+                            Id = new Guid("d7ba4c9e-59d0-4fb8-8dbf-84e82493fac9"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "25 ml šťavy z citróna"
                         },
                         new
                         {
-                            Id = new Guid("3cf36753-1b5b-40cb-a157-2f86bb9d7df0"),
+                            Id = new Guid("2c4f52b1-fe04-44b9-9292-ee0912bd10e5"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "1 - 2 strúčiky cesnaku"
                         },
                         new
                         {
-                            Id = new Guid("5481a4b5-cbbb-44e8-ae6a-0ce4dcbeb756"),
+                            Id = new Guid("5a7921f1-e780-4049-832c-84fc712cb2c7"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "2 PL studenej vody'"
                         },
                         new
                         {
-                            Id = new Guid("401ae98f-7a70-4310-8a14-f70fc01511c1"),
+                            Id = new Guid("3c53ed3a-11cf-472c-a421-32f72ad9f024"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "1 PL panenského olivového oleja"
                         },
                         new
                         {
-                            Id = new Guid("3df1a060-7890-4d8a-9097-ccf7ccd0cf0f"),
+                            Id = new Guid("1e4e7748-b8ff-4842-890f-241feda19c18"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "1/2 ČL rímskej rasce"
                         },
                         new
                         {
-                            Id = new Guid("ee7decbf-d27c-4320-a7e4-a922cefba894"),
+                            Id = new Guid("b6bcb6d1-ed42-4f75-98d4-9b1cbf26bd25"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "soľ a čierne korenie"
                         },
                         new
                         {
-                            Id = new Guid("9663322c-b38f-41e6-a1c8-c618ae19b8ad"),
+                            Id = new Guid("51d790d0-6423-4933-aca4-cd8610cee18a"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "300 g ryže arborio"
                         },
                         new
                         {
-                            Id = new Guid("5b2dc63c-4d97-4f46-858b-042467ce29ef"),
+                            Id = new Guid("e859110a-b49f-4fd3-9385-14b86080bb00"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "1 cibuľa"
                         },
                         new
                         {
-                            Id = new Guid("69386d65-9196-4b88-b10d-4c9a9ccbba77"),
+                            Id = new Guid("bdbdcfbf-c732-4834-8a42-906f09795b25"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "200 ml bieleho suchého vína"
                         },
                         new
                         {
-                            Id = new Guid("f4d40aa2-df82-4870-95e5-eef5c6b993f3"),
+                            Id = new Guid("7565ec28-fca8-4ed1-8d81-04ecd6ec8fe7"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "300 ml paradajkového pretlaku/passaty"
                         },
                         new
                         {
-                            Id = new Guid("053ea85f-1118-414d-8cff-8945e5b75bc0"),
+                            Id = new Guid("911fbbfe-d5fa-4432-8ae7-438af60362dd"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "700 ml vývaru/vody"
                         },
                         new
                         {
-                            Id = new Guid("9160ca1e-657f-4de1-af94-fcf9b0a773db"),
+                            Id = new Guid("0d38ad4a-0a72-46db-96d8-76756e4db844"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "3 plátky masla"
                         },
                         new
                         {
-                            Id = new Guid("bdddd566-6caa-4a53-8100-c968ca7dbcc5"),
+                            Id = new Guid("00c33344-93f5-4e9f-8c68-e08711335f46"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "100 g parmezánu"
                         },
                         new
                         {
-                            Id = new Guid("df21f6ad-2dfd-400f-9f00-1698aa2ef27f"),
+                            Id = new Guid("c4ebe4dc-ac2b-4dbd-b072-39a88438ea13"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "panenský olivový olej"
                         },
                         new
                         {
-                            Id = new Guid("b138fa84-3d32-4951-a6a8-098c0a163604"),
+                            Id = new Guid("fd71ad43-ee76-4280-88d7-07ad43637d9d"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "soľ a čierne korenie"
                         },
                         new
                         {
-                            Id = new Guid("44924b9d-d906-4360-b32c-577376787a96"),
+                            Id = new Guid("0fef96f9-5be9-445e-acd9-15267635aab8"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "sušená bazalka"
                         },
                         new
                         {
-                            Id = new Guid("b2a57e57-8a00-4612-b827-b5ce18b8c9bc"),
+                            Id = new Guid("503c08e8-e29a-4ecf-998e-4769e18fb82c"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "sušené oregano"
                         },
                         new
                         {
-                            Id = new Guid("1c0d6543-f9a8-4e04-b819-0d5c2c040de4"),
+                            Id = new Guid("f05ae3d1-46c6-45e0-a9c4-d7eb77f7df6e"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "hrsť čerstvej bazalky"
                         },
                         new
                         {
-                            Id = new Guid("f51024d2-b2cf-41ff-9f4d-ae3c5fbce94a"),
+                            Id = new Guid("12979312-e281-4f56-bf48-c2c04e6c5c03"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "500 g cherry paradajok"
                         },
                         new
                         {
-                            Id = new Guid("0feda18a-5980-4ab0-b8a3-4a41924bac5f"),
+                            Id = new Guid("fccf5ca7-1762-4d9e-987e-0cc5fa1bc266"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "4 strúčiky cesnaku"
                         },
                         new
                         {
-                            Id = new Guid("6d0c67fa-1634-40e7-8597-ee63bde4a5bf"),
+                            Id = new Guid("033be4b3-1828-43b8-8350-53787085f678"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "500 g cherry paradajok"
                         },
                         new
                         {
-                            Id = new Guid("6f544632-6e7b-41a4-beb2-e4a9ff2e8cec"),
+                            Id = new Guid("ca1e32c0-61a5-4129-ba54-63e7369bf771"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "7 PL panenského olivového oleja"
                         },
                         new
                         {
-                            Id = new Guid("e5bb350b-19c9-4449-8a5e-a2aed7c90e48"),
+                            Id = new Guid("e987548c-2766-4aeb-9998-b9e54247deb5"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "3 strúčiky cesnaku"
                         },
                         new
                         {
-                            Id = new Guid("5f009ba5-dc97-40cc-8a3c-53013851dc1f"),
+                            Id = new Guid("62dc5b90-ea8d-4e46-9b4f-3410ea27a88d"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "1 bageta alebo iné pečivo (pre verziu bez lepku odporúčam použiť 1 balenie bezlepkových svetlých žemlí K-free, ktoré nájdete v Kauflande)"
                         },
                         new
                         {
-                            Id = new Guid("7a5927d3-d98b-4a06-ab13-76478f7655f8"),
+                            Id = new Guid("43da2dfb-40d1-4edb-b21a-803fe08a7a70"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "mozzarella"
                         },
                         new
                         {
-                            Id = new Guid("9c627d99-f589-4caf-a374-7f3b2386a4c8"),
+                            Id = new Guid("fc008f36-6661-4e13-aa8c-6cd62e882d2a"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "bazalkové pesto"
                         },
                         new
                         {
-                            Id = new Guid("8ff30443-5bca-4190-b7ac-8b2c08b5f415"),
+                            Id = new Guid("299d18b8-ff83-43a4-b622-a1ace5d93ca1"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "hrsť lístkov bazalky"
                         },
                         new
                         {
-                            Id = new Guid("ebc142b2-4a72-439c-8654-71ed6cbf5722"),
+                            Id = new Guid("26506aa6-4fe5-4930-b511-243a6e1eb04f"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "soľ a čierne korenie"
                         });
@@ -566,14 +561,14 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -584,55 +579,55 @@ namespace MRecipes.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("92937ecd-c5e8-4e29-adf9-abfd3ecd9442"),
+                            Id = new Guid("0573d544-0735-4699-9288-923fca5a1215"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "Predvarený cícer z konzervy prepláchneme, preložíme do hrnca, zalejeme vodou, jemne osolíme a privedieme do varu. Keď začne vrieť, znížime teplotu a prikrytý varíme približne 20 minút. Mäkký cícer prepláchneme studenou vodou a zbavíme šupiek. Presypeme ho do výkonného mixéra a pridáme k nemu ostatné ingrediencie na hummus. Vymixujeme dohladka a v prípade potreby pridáme trochu vody. Dochutíme soľou, čiernym korením a citrónovou šťavou."
                         },
                         new
                         {
-                            Id = new Guid("4cd71676-03cd-4cb0-8151-cdeb38362d28"),
+                            Id = new Guid("81cefcb4-35c9-44db-886e-82dd693684e5"),
                             ArticleId = new Guid("a2c30491-5461-4e7f-b13d-d1d9d268206f"),
                             Name = "Hummus pred podávaním ochutíme trochou mletej červenej papriky, pokvapkáme olivovým olejom a ozdobíme nakrájanou cibuľou, paradajkami, kolieskami uhorky a hrsťou zelených a čiernych olív. Servírujeme s plátkami citróna, slanými krekrami a výberom rôznych salám a syrov."
                         },
                         new
                         {
-                            Id = new Guid("110a07ad-6596-4eb9-bcbc-d8f5c21d38d3"),
+                            Id = new Guid("a1f6ae40-7b14-4d6e-ad0c-5c1f68a58d14"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "Paradajky nakrájame na štvrtiny a vložíme do misky. Pokvapkáme ich olivovým olejom (cca 5 PL panenského olivového oleja), pridáme prelisované strúčiky cesnaku a ochutíme soľou a čiernym korením. Premiešame lyžicou a necháme pár minút odležať. Následne celú zmes preložíme na plech vyložený papierom na pečenie a vložíme do rúry vyhriatej na 200 °C. Pečieme 25 minút."
                         },
                         new
                         {
-                            Id = new Guid("f64d5716-de0d-46b1-8487-7e25cc78e2e2"),
+                            Id = new Guid("dee57e82-d47b-4638-961d-c47ecbe335f5"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "V menšom hrnci zohrejeme kurací alebo zeleninový vývar. Ak vývar nemáte, môžete použiť aj vodu - do menšieho hrnca dajte zohriať 700 ml vody a keď bude horúca, pridajte do nej lyžičku soli a dobre premiešajte. Vývar, prípadne vodu zohrievame preto, aby mali podobnú teplotu ako ryža. Vďaka tomu sa nezastaví proces varenia a budete mať rizoto presne také, aké má byť - krémové a neskutočne dobré."
                         },
                         new
                         {
-                            Id = new Guid("137c7f2b-15c2-45f4-9d36-d51332af7c2c"),
+                            Id = new Guid("eeab537e-cb20-45c2-8d7a-d4386e4e57b7"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "Kým sa vývar/voda zohrieva, zohrejeme si v hlbokej panvici olivový olej, pridáme nadrobno nasekanú cibuľu a opečieme dosklovita. Prisypeme nepremytú ryžu arborio (môžete použiť aj carnaroli ryžu) a poriadne premiešame, aby sa ryža obalila vo vrstve oleja. Opekáme cca 4 minúty, pričom ryžu pravidelne premiešavame. Prilejeme víno a za občasného miešania privedieme do varu. Varíme cca 2 minúty, kým sa víno neodparí."
                         },
                         new
                         {
-                            Id = new Guid("0d65c05a-c88e-4a83-90ad-0d625bc3b934"),
+                            Id = new Guid("3575dcc5-1799-4999-817e-ce6958eccea5"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "Prilejeme paradajkový pretlak/passatu a dobre premiešame. Znížime teplotu na stredný plameň, pridáme naberačku teplého vývaru alebo osolenej vody a pravidelne miešame, kým sa voda nevstrebe. Pokračujeme v postupnom pridávaní vody a zakaždým premiešavame, kým sa voda nevstrebe a ryža sa neuvarí al dente. Ryža je hotová vtedy, keď je obklopená krémovou tekutinou a po ochutnaní je jemne chrumkavá. Celý proces varenia trvá cca 25 minút."
                         },
                         new
                         {
-                            Id = new Guid("a109899e-d81d-46d4-9e15-edc0f34bc093"),
+                            Id = new Guid("fdadd3d8-990b-470c-9ad4-ddba8d662fca"),
                             ArticleId = new Guid("11d5122f-8e94-485a-bf2c-8c432b254cc3"),
                             Name = "Rizoto stiahneme zo sporáka, pridáme k nemu plátky masla a nastrúhaný parmezán a vareškou jemne premiešame. Podľa potreby dochutíme soľou, čiernym korením, trochou sušeného oregana a bazalky. Rizoto servírujeme v hlbokých tanieroch, navrch dáme pečené paradajky a ozdobíme lístkami čerstvej bazalky. Rizoto podávame hneď po uvarení, vtedy chutí najlepšie, s pohárom bieleho vína priam dokonale!"
                         },
                         new
                         {
-                            Id = new Guid("2216f933-a823-4b08-b592-01669bf22b7b"),
+                            Id = new Guid("40c1a039-5e1d-47a5-8d5a-7d45d55c3db4"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "Paradajky nakrájame na menšie kúsky a vložíme do misky. Zalejeme ich olivovým olejom, pridáme prelisované strúčiky cesnaku, ochutíme soľou a čiernym korením a dobre premiešame. Necháme pár minút postáť. Následne paradajky preložíme na plech vyložený papierom na pečenie a vložíme do rúry vyhriatej na 200 °C. Pečieme približne 30 minút, kým nezmäknú."
                         },
                         new
                         {
-                            Id = new Guid("4f394ad0-8fea-456d-8e65-bfceda355a84"),
+                            Id = new Guid("1a8b7431-2103-4fa4-9ccb-82dd2af5e185"),
                             ArticleId = new Guid("b83ebc52-d646-4ab1-94df-72582f0d8c5a"),
                             Name = "Bagetu alebo iné pečivo nakrájame na približne rovnaké kúsky. Ak použijete bezlepkové svetlé žemle K-free od Kauflandu, prekrojte ich na polovicu. Jednotlivé kúsky potrieme zvyšným olivovým olejom, ktorý zostal v miske a opečieme na grile, panvici alebo vložíme na 10 minút do rúry. Chrumkavé pečivo potrieme pestom, na to dáme plátok mozzarelly, grilované paradajky a lístky čerstvej bazalky."
                         });
@@ -642,11 +637,11 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -704,29 +699,29 @@ namespace MRecipes.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -735,8 +730,8 @@ namespace MRecipes.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d535f09b-e140-4cda-9627-03068356ed7b"),
-                            BirthDate = new DateOnly(2005, 4, 7),
+                            Id = new Guid("2e7744ab-ff9f-42b4-83fb-ab42b2aa66b6"),
+                            BirthDate = new DateOnly(2005, 4, 24),
                             Email = "user@gmail.com",
                             Name = "JustUser",
                             PasswordHash = "A10EF1777E1CE5BA2A50A7B452CD4B3FF69B3A6BAAA8808CDB0603A5E06B2942FF88BE51F507E36404D20609153A58EAA32B15C4EDD48111CFA0C7B0EBABE6C0",
@@ -745,8 +740,8 @@ namespace MRecipes.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("516f4012-5f25-4c1e-8e75-a076ce71a82d"),
-                            BirthDate = new DateOnly(1995, 4, 7),
+                            Id = new Guid("cf4ffe09-0d11-446f-a268-e3c73f6e0d0c"),
+                            BirthDate = new DateOnly(1995, 4, 24),
                             Email = "admin@gmail.com",
                             Name = "JustAdmin",
                             PasswordHash = "72FB6CEA3520ACB1BF2AA3D2110B31A1DC12E342C5D446CF2CA290E064C7B5A138D96F358466E5C4349E739635716D4544F23DDB8BAE0903F23C81B6FB887420",
