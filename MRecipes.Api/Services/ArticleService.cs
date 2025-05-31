@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MRecipes.Api.Contracts;
 using MRecipes.Api.Models;
 using MRecipes.Api.Persistence;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MRecipes.Api.Services;
 
@@ -30,6 +29,7 @@ public class ArticleService : IArticleService
     {
         return _dbContext.Articles
             .Include(a => a.Author)
+            .Include(a => a.Image)
             .Include(a => a.Tags).ThenInclude(t => t.Tag)
             .Include(a => a.Ingredients)
             .Include(a => a.Steps)
