@@ -89,7 +89,7 @@ public class ArticlesController : ControllerBase
         }
 
         var result = await _articleService.UpdateArticleAsync(dtoParsed, image, cancellationToken);
-        
+
         return result ? Ok() : BadRequest();
     }
 
@@ -115,7 +115,7 @@ public class ArticlesController : ControllerBase
     {
         var result = await _articleCommentService.CreateArticleCommentAsync(request, cancellationToken);
 
-        return result ?  Ok() : BadRequest();
+        return result ? Ok() : BadRequest();
     }
 
     [Authorize(Policy = IdentityData.RoleUserPolicyName)]
