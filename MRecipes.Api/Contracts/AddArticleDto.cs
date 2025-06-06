@@ -14,7 +14,7 @@ public class AddArticleDto
     public List<string> Steps { get; set; } = [];
 
     [JsonPropertyName("tags")]
-    public string Tags { get; set; } = string.Empty;
+    public List<string> Tags { get; set; } = [];
 
     [JsonPropertyName("ingredients")]
     public string Ingredients { get; set; } = string.Empty;

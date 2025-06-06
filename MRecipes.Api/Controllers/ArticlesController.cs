@@ -60,7 +60,7 @@ public class ArticlesController : ControllerBase
            string.IsNullOrWhiteSpace(dtoParsed.Title) ||
            string.IsNullOrWhiteSpace(dtoParsed.Description) ||
            string.IsNullOrWhiteSpace(dtoParsed.Ingredients) ||
-           string.IsNullOrWhiteSpace(dtoParsed.Tags) ||
+           dtoParsed.Tags.Count <= 0 ||
            dtoParsed.Steps.Count <= 0
           )
         {
@@ -81,7 +81,7 @@ public class ArticlesController : ControllerBase
             string.IsNullOrWhiteSpace(dtoParsed.Title) ||
            string.IsNullOrWhiteSpace(dtoParsed.Description) ||
            string.IsNullOrWhiteSpace(dtoParsed.Ingredients) ||
-           string.IsNullOrWhiteSpace(dtoParsed.Tags) ||
+           dtoParsed.Tags.Count <= 0 ||
            dtoParsed.Steps.Count <= 0
         )
         {

@@ -71,7 +71,7 @@ public class ArticleService : IArticleService
 
             var dbTags = await _dbContext.Tags.ToListAsync();
 
-            foreach (var dtoTag in dto.Tags.Split(","))
+            foreach (var dtoTag in dto.Tags)
             {
                 var tag = dbTags.FirstOrDefault(t => t.Name.ToLower() == dtoTag.Trim().ToLower());
                 if (tag != null)
@@ -141,7 +141,7 @@ public class ArticleService : IArticleService
 
             var dbTags = await _dbContext.Tags.ToListAsync();
 
-            foreach (var dtoTag in dto.Tags.Split(","))
+            foreach (var dtoTag in dto.Tags)
             {
                 var tag = dbTags.FirstOrDefault(t => t.Name.ToLower() == dtoTag.Trim().ToLower());
                 if (tag != null)
