@@ -58,7 +58,7 @@ public class ArticleMapper : IArticleMapper
             Title = article.Title,
             DateAdded = article.DateAdded,
             Image = article.Image == null ? null : Convert.ToBase64String(article.Image.Image),
-            Tags = string.Join(",", article.Tags.Select(at => at.Tag.Name).ToList())
+            Tags = article.Tags.Select(at => at.Tag.Name).ToList()
         };
     }
 }
