@@ -55,6 +55,8 @@ builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IArticleCommentService, ArticleCommentService>();
 builder.Services.AddScoped<IArticleMapper, ArticleMapper>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<ITagMapper, TagMapper>();
 
 
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();

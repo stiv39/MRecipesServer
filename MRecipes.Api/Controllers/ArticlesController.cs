@@ -18,8 +18,7 @@ public class ArticlesController : ControllerBase
 
     public ArticlesController(
         IArticleService articleService,
-        IArticleCommentService articleCommentService
-,
+        IArticleCommentService articleCommentService,
         IArticleMapper articleMapper)
     {
         _articleService = articleService;
@@ -100,14 +99,6 @@ public class ArticlesController : ControllerBase
         var result = await _articleService.DeleteArticleAsync(id, cancellationToken);
 
         return result ? NoContent() : BadRequest();
-    }
-
-    [HttpGet("tags")]
-    public async Task<IActionResult> GetArticleTags(CancellationToken cancellationToken)
-    {
-        var tags = await _articleService.GetArticleTagsAsync(cancellationToken);
-
-        return Ok(tags.Select(_articleMapper.ToTagDto).ToList());
     }
 
     [HttpPost("comment")]
