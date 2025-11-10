@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using MRecipes.Api.Filters;
 using MRecipes.Api.Identity;
 using MRecipes.Api.Mappers;
 using MRecipes.Api.Persistence;
@@ -61,7 +62,10 @@ builder.Services.AddScoped<ITagMapper, TagMapper>();
 
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(cfg =>
+{
+    cfg.Filters.Add(typeof(ExceptionFilter));
+});
 
 
 builder.Services.AddEndpointsApiExplorer();
