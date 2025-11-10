@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MRecipes.Api.Filters;
@@ -62,6 +61,8 @@ builder.Services.AddScoped<ITagMapper, TagMapper>();
 
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
+builder.Services.AddControllers();
+
 builder.Services.AddControllers(cfg =>
 {
     cfg.Filters.Add(typeof(ExceptionFilter));
@@ -73,7 +74,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MRecipesDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();
